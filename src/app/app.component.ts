@@ -13,29 +13,29 @@ export class AppComponent {
 
   produtos: Produto[] = [
     {
-      id: null,
+      id: undefined,
       nome: 'Arroz',
       marca: 'Tio João',
     },
     {
-      id: null,
+      id: undefined,
       nome: 'Feijão',
       marca: 'Camil',
     },
     // -NyfA-GuLTLf8oh55zMF
     {
-      id: null,
+      id: undefined,
       nome: 'Macarrão',
       marca: 'Renata',
     },
     {
-      id: null,
+      id: undefined,
       nome: 'Açúcar',
       marca: 'União',
     },
     //-NyfA-Gv3QuuuRqBpmZ8
     {
-      id: null,
+      id: undefined,
       nome: 'Óleo',
       marca: 'Liza',
     },
