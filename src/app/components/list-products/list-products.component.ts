@@ -5,14 +5,15 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DatabaseService } from '../../services/database.service';
 import { Produto } from '../../models/produto';
+import { AddItemComponent } from '../../components/add-item/add-item.component';
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [SharedModule, CommonModule],
+  imports: [SharedModule, CommonModule, AddItemComponent],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class ListProductsComponent {
   productDialog: boolean = false;
@@ -23,7 +24,10 @@ export class ListProductsComponent {
 
   products: Produto[] = [];
 
-  product: Produto = {};
+  product: Produto = {
+    nome: '',
+    marca: '',
+  };
 
   selectedProducts: Produto[] = [];
 
@@ -35,7 +39,10 @@ export class ListProductsComponent {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  constructor(private dbservice: DatabaseService, private messageService: MessageService) { }
+  constructor(
+    private dbservice: DatabaseService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.dbservice.getProdutos().subscribe((response) => {
@@ -51,18 +58,15 @@ export class ListProductsComponent {
       { field: 'price', header: 'Price' },
       { field: 'category', header: 'Category' },
       { field: 'rating', header: 'Reviews' },
-      { field: 'inventoryStatus', header: 'Status' }
-    ];
-
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' }
+      { field: 'inventoryStatus', header: 'Status' },
     ];
   }
 
   openNew() {
-    this.product = {};
+    this.product = {
+      nome: '',
+      marca: '',
+    };
 
     this.submitted = false;
     this.productDialog = true;
@@ -79,7 +83,7 @@ export class ListProductsComponent {
 
   deleteProduct(product: Produto) {
     this.deleteProductDialog = true;
-    if (product.id !== undefined) {
+    if (product.id) {
       this.dbservice.deleteProduto(product.id);
     }
     this.product = { ...product };
@@ -87,16 +91,31 @@ export class ListProductsComponent {
 
   confirmDeleteSelected() {
     this.deleteProductsDialog = false;
-    this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+    this.products = this.products.filter(
+      (val) => !this.selectedProducts.includes(val)
+    );
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: 'Products Deleted',
+      life: 3000,
+    });
     this.selectedProducts = [];
   }
 
   confirmDelete() {
     this.deleteProductDialog = false;
-    this.products = this.products.filter(val => val.id !== this.product.id);
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    this.product = {};
+    this.products = this.products.filter((val) => val.id !== this.product.id);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: 'Product Deleted',
+      life: 3000,
+    });
+    this.product = {
+      nome: '',
+      marca: '',
+    };
   }
 
   hideDialog() {
@@ -104,27 +123,16 @@ export class ListProductsComponent {
     this.submitted = false;
   }
 
-  saveProduct() {
+  addProduct() {
     this.submitted = true;
 
-    if (this.product.nome?.trim()) {
-      if (this.product.id) {
-        // @ts-ignore
-        this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-      } else {
-        this.product.id = this.createId();
-        // @ts-ignore
-        this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-        this.products.push(this.product);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-      }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
-    }
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Produto registrado',
+      life: 3000,
+    });
+    this.hideDialog();
   }
 
   findIndexById(id: string): number {
@@ -140,7 +148,8 @@ export class ListProductsComponent {
 
   createId(): string {
     let id = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const chars =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 5; i++) {
       id += chars.charAt(Math.floor(Math.random() * chars.length));
     }

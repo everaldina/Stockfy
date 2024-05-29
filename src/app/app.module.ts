@@ -17,9 +17,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { OpcaoComponent } from './components/opcao/opcao.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,7 +29,7 @@ import { OpcaoComponent } from './components/opcao/opcao.component';
   ],
 
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],

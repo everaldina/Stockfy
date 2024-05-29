@@ -1,0 +1,39 @@
+<div class="p-fluid p-formgrid p-grid">
+  <form [formGroup]="productForm" class="p-fluid" (ngSubmit)="onSubmit()">
+    <div class="p-field p-col-12 p-md-6">
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" pInputText formControlName="nome" />
+      <div
+        *ngIf="
+          productForm.controls['nome'].invalid &&
+          productForm.controls['nome'].touched
+        "
+        class="p-error"
+      >
+        Nome é obrigatório.
+      </div>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="marca">Marca</label>
+      <input id="marca" type="text" pInputText formControlName="marca" />
+      <div
+        *ngIf="
+          productForm.controls['marca'].invalid &&
+          productForm.controls['marca'].touched
+        "
+        class="p-error"
+      >
+        Marca é obrigatória.
+      </div>
+    </div>
+    <div class="p-col-12">
+      <button
+        pButton
+        type="button"
+        label="Enviar"
+        (click)="onSubmit()"
+        [disabled]="productForm.invalid"
+      ></button>
+    </div>
+  </form>
+</div>

@@ -5,26 +5,29 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="openNew()"></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                        <button pButton pRipple label="Adicionar produto" icon="pi pi-plus"
+                            class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="Apagar produto" icon="pi pi-trash" class="p-button-danger"
                             (click)="deleteSelectedProducts()"
                             [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
-                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="[
+                'name',
+                'country.name',
+                'representative.name',
+                'status'
+                ]" [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Produdos {first} - {last} de {totalRecords} registros"
                 [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Manage Products</h5>
+                        <h5 class="m-0">Relação de produtos</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
                                 class="w-full sm:w-auto" />
                         </span>
                     </div>
@@ -34,9 +37,15 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
-                        <th pSortableColumn="name">Nome <p-sortIcon field="nome"></p-sortIcon></th>
-                        <th pSortableColumn="marca">Marca <p-sortIcon field="marca"></p-sortIcon></th>
+                        <th pSortableColumn="code">
+                            Id <p-sortIcon field="code"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="nome">
+                            Nome <p-sortIcon field="nome"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="marca">
+                            Marca <p-sortIcon field="marca"></p-sortIcon>
+                        </th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -45,27 +54,24 @@
                         <td>
                             <p-tableCheckbox [value]="product"></p-tableCheckbox>
                         </td>
-                        <td style="width:25%; min-width:10rem;"><span class="p-column-title">Code</span>
-                            {{product.id}}
+                        <td style="width: 25%; min-width: 10rem">
+                            <span class="p-column-title">Code</span>
+                            {{ product.code || product.id }}
                         </td>
-                        
-                        <td style="width:25%; min-width:10rem;">
+                        <td style="width: 25%; min-width: 10rem">
                             <span class="p-column-title">Nome</span>
-                            {{product.nome}}
+                            {{ product.nome }}
                         </td>
 
-                        <td style="width:25%; min-width:10rem;">
+                        <td style="width: 25%; min-width: 10rem">
                             <span class="p-column-title">Marca</span>
-                            {{product.marca}}
+                            {{ product.marca }}
                         </td>
 
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-success mr-2"
-                                    (click)="editProduct(product)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteProduct(product)"></button>
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
                             </div>
                         </td>
                     </tr>
@@ -73,20 +79,15 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+        <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
             class="p-fluid">
-            <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
-                    (click)="hideDialog()"></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
-                    (click)="saveProduct()"></button>
-            </ng-template>
+            <app-add-item (closeDialog)="addProduct()"></app-add-item>
         </p-dialog>
 
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Deseja mesmo deletar <b>{{product.nome}}</b>?</span>
+                <span *ngIf="product">Are you sure you want to delete <b>{{ product.nome }}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
@@ -96,10 +97,10 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Deseja mesmo deletar os produtos selecionados?</span>
+                <span>Are you sure you want to delete selected products?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
