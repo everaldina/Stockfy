@@ -18,11 +18,7 @@ import { OpcaoComponent } from './components/opcao/opcao.component';
 import { ListagemComponent } from './pages/listagem/listagem.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,11 +28,10 @@ import { ListagemComponent } from './pages/listagem/listagem.component';
     HomeComponent,
     MenuComponent,
     ListagemComponent,
-
   ],
 
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],

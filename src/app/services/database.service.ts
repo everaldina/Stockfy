@@ -33,7 +33,7 @@ export class DatabaseService {
 
   addProduto(produto: Produto) {
     return this.http
-      .post<Produto>(this.endpoint + '/produtos.json', produto)
+      .post(this.endpoint + '/produtos.json', produto)
       .pipe(retry(2), catchError(this.handleError));
   }
 
