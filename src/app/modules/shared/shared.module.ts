@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [],
@@ -36,7 +37,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ToastModule,
     TableModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    ToolbarModule,
   ],
   providers: [DatePipe],
 })
