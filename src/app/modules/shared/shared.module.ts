@@ -11,6 +11,10 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [],
@@ -28,7 +32,11 @@ import { CardModule } from 'primeng/card';
     ButtonModule,
     MessageModule,
     ProgressSpinnerModule,
-    CardModule
+    CardModule,
+    ToastModule,
+    TableModule,
+    DialogModule,
+    DropdownModule
   ],
   providers: [DatePipe],
 })
