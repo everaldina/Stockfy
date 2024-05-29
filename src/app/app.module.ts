@@ -13,18 +13,26 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 import { HomeComponent } from './components/home/home.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { OpcaoComponent } from './components/opcao/opcao.component';
+import { ListagemComponent } from './pages/listagem/listagem.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    HomeComponent,
+    MenuComponent,
+    ListagemComponent,
+
   ],
 
   providers: [
