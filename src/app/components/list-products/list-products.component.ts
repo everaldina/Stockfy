@@ -64,13 +64,6 @@ export class ListProductsComponent {
     ];
   }
 
-  teste(){
-    
-    //console.log(this.signalProducts());
-    //this.products.push(this.signalProducts()[0]);
-    //this.signalProducts.update(current => [...current, this.signalProducts()[0]]);
-  }
-
   openNew() {
     this.product = {};
 
