@@ -52,8 +52,6 @@ export class ListProductsComponent {
           products.push({ ...response[key], id: key });
         }
       }
-
-      this.products = products;
     });
 
     this.cols = [
