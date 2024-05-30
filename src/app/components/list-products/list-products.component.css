@@ -1,0 +1,20 @@
+.product-badge{
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+}
+
+.status-instock {
+    background: #C8E6C9;
+    color: #256029;
+}
+
+.status-outofstock {
+    background: #FFCDD2;
+    color: #c63737;
+}
