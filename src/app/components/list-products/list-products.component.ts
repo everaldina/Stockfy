@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 import { DatabaseService } from '../../services/database.service';
 import { Produto } from '../../models/produto';
 import { AddItemComponent } from '../../components/add-item/add-item.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -38,7 +39,8 @@ export class ListProductsComponent {
 
   constructor(
     private dbservice: DatabaseService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -174,5 +176,9 @@ export class ListProductsComponent {
 
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
+  toLote(id: string){
+    this.router.navigate(['/lote', id]);
   }
 }
