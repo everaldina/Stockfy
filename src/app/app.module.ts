@@ -15,9 +15,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { OpcaoComponent } from './components/opcao/opcao.component';
+import { ListLotesComponent } from './components/list-lotes/list-lotes.component';
+import { AddLoteComponent } from './components/add-lote/add-lote.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AddLoteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +28,7 @@ import { OpcaoComponent } from './components/opcao/opcao.component';
     AuthModule,
     HomeComponent,
     MenuComponent,
+    OpcaoComponent
   ],
 
   providers: [

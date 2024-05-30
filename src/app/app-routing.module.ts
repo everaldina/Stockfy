@@ -5,12 +5,13 @@ import { AuthComponent } from './modules/auth/components/auth/auth.component';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { ListProductsComponent } from './components/list-products/list-products.component';
+import { ListLotesComponent } from './components/list-lotes/list-lotes.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: AuthComponent},
   { path: 'products', component: ListProductsComponent, canActivate: [AuthGuard]},
-  { path:'lotes/:id', component: HomeComponent, canActivate: [AuthGuard]},
+  { path:'lotes/:id', component: ListLotesComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: ''},
 ];
 
