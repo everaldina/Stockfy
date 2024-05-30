@@ -32,7 +32,7 @@ import { Produto } from '../../models/produto';
 export class AddItemComponent implements OnChanges {
   productForm: FormGroup;
   @Output() addProduct = new EventEmitter<Produto>();
-  @Output() editProduct = new EventEmitter();
+  @Output() editProduct = new EventEmitter<Produto>();
   @Input() idProduto: Produto = {} as Produto;
 
   ngOnChanges() {
@@ -63,7 +63,7 @@ export class AddItemComponent implements OnChanges {
           marca: this.productForm.value.marca,
         };
         this.dbservice.updateProduto(updatedProduct);
-        this.editProduct.emit();
+        this.editProduct.emit(updatedProduct);
         this.productForm.reset();
       } else {
         // Add new product

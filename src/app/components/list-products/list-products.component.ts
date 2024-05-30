@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { SharedModule } from '../../modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { Header, MessageService } from 'primeng/api';
@@ -24,6 +24,7 @@ export class ListProductsComponent {
   deleteProductsDialog: boolean = false;
 
   products: Produto[] = [];
+  signalProducts = signal<Produto[]>([]);
 
   product: Produto = {};
 
@@ -54,6 +55,7 @@ export class ListProductsComponent {
       }
 
       this.products = products;
+      this.signalProducts.set(this.products);
     });
 
     this.cols = [
@@ -61,6 +63,13 @@ export class ListProductsComponent {
       { field: 'nome', header: 'Nome' },
       { field: 'marca', header: 'Marca' },
     ];
+  }
+
+  teste(){
+    
+    //console.log(this.signalProducts());
+    //this.products.push(this.signalProducts()[0]);
+    //this.signalProducts.update(current => [...current, this.signalProducts()[0]]);
   }
 
   openNew() {
@@ -97,6 +106,8 @@ export class ListProductsComponent {
     this.products = this.products.filter(
       (val) => !this.selectedProducts.includes(val)
     );
+    this.signalProducts.set(this.products);
+    
     this.messageService.add({
       severity: 'success',
       summary: 'Successful',
@@ -111,6 +122,7 @@ export class ListProductsComponent {
 
     if (this.product.id) {
       this.products = this.products.filter((val) => val.id !== this.product.id);
+      this.signalProducts.set(this.products);
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
@@ -129,7 +141,7 @@ export class ListProductsComponent {
     this.submitted = false;
   }
 
-  onAddProduct() {
+  onAddProduct(produtoAdicionado: Produto) {
     this.submitted = true;
 
     this.messageService.add({
@@ -139,9 +151,11 @@ export class ListProductsComponent {
       life: 3000,
     });
     this.hideDialog();
+
+    this.signalProducts.update(currentItems => [...currentItems, produtoAdicionado]);
   }
 
-  onEditProduct() {
+  onEditProduct(productEditado: Produto) {
     this.submitted = true;
 
     this.messageService.add({
@@ -151,12 +165,22 @@ export class ListProductsComponent {
       life: 3000,
     });
     this.hideDialog();
+
+    const signalCopia = this.signalProducts();
+
+    const index = signalCopia.findIndex(item => item.id === productEditado.id)
+    if(index !== 1){
+      console.log(this.product);
+      const signalNovo = [...signalCopia];
+      signalNovo[index] =  { ...signalNovo[index], ...productEditado };
+      this.signalProducts.set(signalNovo);
+    }
   }
 
   findIndexById(id: string): number {
     let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
+    for (let i = 0; i < this.signalProducts().length; i++) {
+      if (this.signalProducts()[i].id === id) {
         index = i;
         break;
       }
