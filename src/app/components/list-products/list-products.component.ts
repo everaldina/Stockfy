@@ -62,10 +62,7 @@ export class ListProductsComponent {
   }
 
   openNew() {
-    this.product = {
-      nome: '',
-      marca: '',
-    };
+    this.product = {};
 
     this.submitted = false;
     this.productDialog = true;
@@ -83,9 +80,6 @@ export class ListProductsComponent {
 
   deleteProduct(product: Produto) {
     this.deleteProductDialog = true;
-    if (product.id) {
-      this.dbservice.deleteProduto(product.id);
-    }
     this.product = { ...product };
   }
 
@@ -112,17 +106,20 @@ export class ListProductsComponent {
 
   confirmDelete() {
     this.deleteProductDialog = false;
-    this.products = this.products.filter((val) => val.id !== this.product.id);
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Successful',
-      detail: 'Product Deleted',
-      life: 3000,
-    });
-    this.product = {
-      nome: '',
-      marca: '',
-    };
+
+    if (this.product.id) {
+      this.products = this.products.filter((val) => val.id !== this.product.id);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: 'Product Deleted',
+        life: 3000,
+      });
+
+      this.dbservice.deleteProduto(this.product.id);
+    }
+
+    this.product = {};
   }
 
   hideDialog() {
