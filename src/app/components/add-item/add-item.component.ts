@@ -1,7 +1,14 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,9 +29,22 @@ import { Produto } from '../../models/produto';
     ButtonModule,
   ],
 })
-export class AddItemComponent {
+export class AddItemComponent implements OnChanges {
   productForm: FormGroup;
-  @Output() closeDialog = new EventEmitter<Produto>();
+  @Output() addProduct = new EventEmitter<Produto>();
+  @Output() editProduct = new EventEmitter();
+  @Input() idProduto: Produto = {} as Produto;
+
+  ngOnChanges() {
+    if (this.idProduto.id) {
+      this.dbservice.getProduto(this.idProduto.id).subscribe((res: any) => {
+        this.productForm.patchValue({
+          nome: res.nome,
+          marca: res.marca,
+        });
+      });
+    }
+  }
 
   constructor(private fb: FormBuilder, private dbservice: DatabaseService) {
     this.productForm = this.fb.group({
@@ -35,19 +55,33 @@ export class AddItemComponent {
 
   onSubmit() {
     if (this.productForm.valid) {
-      this.dbservice
-        .addProduto(this.productForm.value)
-        .subscribe((res: any) => {
-          let product: Produto = {} as Produto;
-          if (res.hasOwnProperty('name')) {
-            product = {
-              id: res['name'],
-              nome: this.productForm.value.nome,
-              marca: this.productForm.value.marca,
-            };
-          }
-          this.closeDialog.emit(product);
-        });
+      if (this.idProduto.id) {
+        // Update product
+        let updatedProduct: Produto = {
+          id: this.idProduto.id,
+          nome: this.productForm.value.nome,
+          marca: this.productForm.value.marca,
+        };
+        this.dbservice.updateProduto(updatedProduct);
+        this.editProduct.emit();
+        this.productForm.reset();
+      } else {
+        // Add new product
+        this.dbservice
+          .addProduto(this.productForm.value)
+          .subscribe((res: any) => {
+            let product: Produto = {} as Produto;
+            if (res.hasOwnProperty('name')) {
+              product = {
+                id: res['name'],
+                nome: this.productForm.value.nome,
+                marca: this.productForm.value.marca,
+              };
+            }
+            this.productForm.reset();
+            this.addProduct.emit(product);
+          });
+      }
     }
   }
 }

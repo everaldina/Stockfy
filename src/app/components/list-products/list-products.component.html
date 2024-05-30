@@ -126,11 +126,15 @@
     <p-dialog
       [(visible)]="productDialog"
       [style]="{ width: '450px' }"
-      header="Product Details"
+      header="Informações do produto"
       [modal]="true"
       class="p-fluid"
     >
-      <app-add-item (closeDialog)="addProduct()"></app-add-item>
+      <app-add-item
+        (addProduct)="onAddProduct()"
+        (editProduct)="onEditProduct()"
+        [idProduto]="product"
+      ></app-add-item>
     </p-dialog>
 
     <p-dialog
@@ -142,9 +146,10 @@
       <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
         <span *ngIf="product"
-          >Are you sure you want to delete <b>{{ product.nome }}</b
-          >?</span
-        >
+          >Tem certeza que quer apagar <b>{{ product.nome }}</b
+          >?<br />
+          Isso apagará todos os registros de lotes associados.
+        </span>
       </div>
       <ng-template pTemplate="footer">
         <button

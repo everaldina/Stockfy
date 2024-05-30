@@ -77,6 +77,7 @@ export class ListProductsComponent {
   }
 
   editProduct(product: Produto) {
+    console.log(product);
     this.product = { ...product };
     this.productDialog = true;
   }
@@ -123,13 +124,25 @@ export class ListProductsComponent {
     this.submitted = false;
   }
 
-  addProduct() {
+  onAddProduct() {
     this.submitted = true;
 
     this.messageService.add({
       severity: 'success',
       summary: 'Sucesso',
       detail: 'Produto registrado',
+      life: 3000,
+    });
+    this.hideDialog();
+  }
+
+  onEditProduct() {
+    this.submitted = true;
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Produto atualizado',
       life: 3000,
     });
     this.hideDialog();
