@@ -7,11 +7,10 @@ import { HomeComponent } from './components/home/home.component';
 import { ListProductsComponent } from './components/list-products/list-products.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: '', redirectTo: 'produtos', pathMatch: 'full'},
   { path: 'login', component: AuthComponent},
-  { path: 'products', component: ListProductsComponent, canActivate: [AuthGuard]},
-  { path:'lotes/:id', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: '**', redirectTo: ''},
+  { path: 'produtos', component: ListProductsComponent, canActivate: [AuthGuard]},
+  { path: 'lotes/:id', component: HomeComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

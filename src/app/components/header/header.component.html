@@ -1,0 +1,16 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="item" let-item let-root="root">
+        <a pRipple class="flex align-items-center p-menuitem-link" (click)="toRoute(item.route)">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+        </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <a pRipple class="flex align-items-center p-menuitem-link" *ngIf="isLoggedIn()" (click)="logout()">
+            <span class="pi pi-fw pi-sign-out"></span>
+            <span class="ml-2">Logout</span>
+            <span class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1"></span>
+        </a>
+    </ng-template>
+</p-menubar>

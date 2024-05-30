@@ -13,8 +13,8 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 import { HomeComponent } from './components/home/home.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { OpcaoComponent } from './components/opcao/opcao.component';
+
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +25,7 @@ import { OpcaoComponent } from './components/opcao/opcao.component';
     SharedModule,
     AuthModule,
     HomeComponent,
-    MenuComponent,
+    HeaderComponent,
   ],
 
   providers: [
