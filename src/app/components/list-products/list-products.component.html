@@ -60,51 +60,110 @@
                             {{ product.nome }}
                         </td>
 
-                        <td style="width: 25%; min-width: 10rem">
-                            <span class="p-column-title">Marca</span>
-                            {{ product.marca }}
-                        </td>
+            <td style="width: 25%; min-width: 10rem">
+              <span class="p-column-title">Marca</span>
+              {{ product.marca }}
+            </td>
 
-                        <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-
-        <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
-            class="p-fluid">
-            <app-add-item (closeDialog)="addProduct()"></app-add-item>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Deseja mesmo deletar <b>{{ product.nome }}</b>?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDelete()"></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Deseja mesmo deletar os produtos selecionados?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductsDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDeleteSelected()"></button>
-            </ng-template>
-        </p-dialog>
+            <td>
+              <div class="flex">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editProduct(product)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteProduct(product)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
+
+    <p-dialog
+      [(visible)]="productDialog"
+      [style]="{ width: '450px' }"
+      header="Informações do produto"
+      [modal]="true"
+      class="p-fluid"
+    >
+      <app-add-item
+        (addProduct)="onAddProduct()"
+        (editProduct)="onEditProduct()"
+        [idProduto]="product"
+      ></app-add-item>
+    </p-dialog>
+
+    <p-dialog
+      [(visible)]="deleteProductDialog"
+      header="Confirm"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="product"
+          >Tem certeza que quer apagar <b>{{ product.nome }}</b
+          >?<br />
+          Isso apagará todos os registros de lotes associados.
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="No"
+          (click)="deleteProductDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="Yes"
+          (click)="confirmDelete()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog
+      [(visible)]="deleteProductsDialog"
+      header="Confirm"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Are you sure you want to delete selected products?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="No"
+          (click)="deleteProductsDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="Yes"
+          (click)="confirmDeleteSelected()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
 </div>
