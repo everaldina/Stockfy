@@ -72,8 +72,8 @@
             <th pSortableColumn="code">
               Id <p-sortIcon field="code"></p-sortIcon>
             </th>
-            <th pSortableColumn="name">
-              Nome <p-sortIcon field="name"></p-sortIcon>
+            <th pSortableColumn="nome">
+              Nome <p-sortIcon field="nome"></p-sortIcon>
             </th>
             <th pSortableColumn="marca">
               Marca <p-sortIcon field="marca"></p-sortIcon>
@@ -86,16 +86,16 @@
             <td>
               <p-tableCheckbox [value]="product"></p-tableCheckbox>
             </td>
-            <td style="width: 14%; min-width: 10rem">
+            <td style="width: 25%; min-width: 10rem">
               <span class="p-column-title">Code</span>
               {{ product.code || product.id }}
             </td>
-            <td style="width: 14%; min-width: 10rem">
-              <span class="p-column-title">Name</span>
+            <td style="width: 25%; min-width: 10rem">
+              <span class="p-column-title">Nome</span>
               {{ product.nome }}
             </td>
 
-            <td style="width: 14%; min-width: 10rem">
+            <td style="width: 25%; min-width: 10rem">
               <span class="p-column-title">Marca</span>
               {{ product.marca }}
             </td>

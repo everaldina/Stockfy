@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { Produto } from './models/produto';
-import { Lote } from './models/lote';
-import { DatabaseService } from './services/database.service';
 
 @Component({
   selector: 'app-root',

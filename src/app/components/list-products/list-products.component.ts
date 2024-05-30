@@ -92,6 +92,13 @@ export class ListProductsComponent {
 
   confirmDeleteSelected() {
     this.deleteProductsDialog = false;
+
+    for (const product of this.selectedProducts) {
+      if (product.id) {
+        this.dbservice.deleteProduto(product.id);
+      }
+    }
+
     this.products = this.products.filter(
       (val) => !this.selectedProducts.includes(val)
     );
