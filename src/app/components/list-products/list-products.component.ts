@@ -24,10 +24,7 @@ export class ListProductsComponent {
 
   products: Produto[] = [];
 
-  product: Produto = {
-    nome: '',
-    marca: '',
-  };
+  product: Produto = {};
 
   selectedProducts: Produto[] = [];
 
@@ -45,12 +42,16 @@ export class ListProductsComponent {
   ) {}
 
   ngOnInit() {
+    let products: Produto[] = [];
+
     this.dbservice.getProdutos().subscribe((response) => {
       for (const key in response) {
         if (response.hasOwnProperty(key)) {
-          this.products.push({ ...response[key], id: key });
+          products.push({ ...response[key], id: key });
         }
       }
+
+      this.products = products;
     });
 
     this.cols = [
