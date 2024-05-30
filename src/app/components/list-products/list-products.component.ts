@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { Header, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DatabaseService } from '../../services/database.service';
 import { Produto } from '../../models/produto';
@@ -54,11 +54,9 @@ export class ListProductsComponent {
     });
 
     this.cols = [
-      { field: 'product', header: 'Product' },
-      { field: 'price', header: 'Price' },
-      { field: 'category', header: 'Category' },
-      { field: 'rating', header: 'Reviews' },
-      { field: 'inventoryStatus', header: 'Status' },
+      { field: 'id', header: 'Code'},
+      { field: 'nome', header: 'Nome' },
+      { field: 'marca', header: 'Marca' },
     ];
   }
 

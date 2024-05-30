@@ -7,7 +7,7 @@
                     <div class="my-2">
                         <button pButton pRipple label="Adicionar produto" icon="pi pi-plus"
                             class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Apagar produto" icon="pi pi-trash" class="p-button-danger"
+                        <button pButton pRipple label="Deletar produtos" icon="pi pi-trash" class="p-button-danger"
                             (click)="deleteSelectedProducts()"
                             [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
@@ -15,10 +15,7 @@
             </p-toolbar>
 
             <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="[
-                'name',
-                'country.name',
-                'representative.name',
-                'status'
+                'nome',
                 ]" [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Produdos {first} - {last} de {totalRecords} registros"
                 [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
@@ -87,7 +84,7 @@
         <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Are you sure you want to delete <b>{{ product.nome }}</b>?</span>
+                <span *ngIf="product">Deseja mesmo deletar <b>{{ product.nome }}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
@@ -100,7 +97,7 @@
         <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to delete selected products?</span>
+                <span>Deseja mesmo deletar os produtos selecionados?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
