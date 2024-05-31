@@ -6,13 +6,11 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
 } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatabaseService } from '../../services/database.service';
 import { Produto } from '../../models/produto';
 

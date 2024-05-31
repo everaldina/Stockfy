@@ -65,9 +65,7 @@ export class DatabaseService {
   addLote(id_produto: string, lote: Lote) {
     this.getLotes(id_produto).subscribe((lotes) => {
       let search = [];
-      if (lotes) {
-        search = lotes.filter((l) => l.cod_lote === lote.cod_lote);
-      }
+      
       if (search.length === 0) {
         this.http
           .post<Lote>(

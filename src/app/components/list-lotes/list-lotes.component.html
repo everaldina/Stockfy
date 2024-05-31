@@ -33,9 +33,6 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="code">
-                            Id <p-sortIcon field="code"></p-sortIcon>
-                        </th>
                         <th pSortableColumn="cod_lote">
                             Código do lote <p-sortIcon field="cod_lote"></p-sortIcon>
                         </th>
@@ -63,14 +60,10 @@
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-lote>
                     <tr>
                         <td>
                             <p-tableCheckbox [value]="lote"></p-tableCheckbox>
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Code</span>
-                            {{ lote.id }}
                         </td>
                         <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Codigo Lote</span>
@@ -100,11 +93,9 @@
                             <span class="p-column-title">Quantidade</span>
                             {{ lote.quantidade }}
                         </td>
-
                         <td style="width:10%; min-width: 10rem;"><span class="p-column-title">Status</span>
                             <span [class]="'product-badge status-' + (lote.status ? lote.status.toLowerCase() : '')">{{lote.status}}</span>
                         </td>
-
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"

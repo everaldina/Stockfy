@@ -12,7 +12,6 @@ import {
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatabaseService } from '../../services/database.service';
 import { Lote } from '../../models/lote';
 
@@ -36,7 +35,6 @@ export class AddLoteComponent {
   @Input() idLote: Lote = {} as Lote;
   @Input() productId: string = '';
 
-
   ngOnChanges() {
     if (this.idLote.id) {
       this.dbservice.getProduto(this.idLote.id).subscribe((res: any) => {
@@ -47,6 +45,7 @@ export class AddLoteComponent {
           data_saida: res.data_saida,
           data_fabricacao: res.data_fabricacao,
           data_validade: res.data_validade,
+          status: res.status,
           quantidade: res.quantidade
         });
       });
@@ -58,9 +57,10 @@ export class AddLoteComponent {
       cod_lote: ['', Validators.required],
       fornecedor: ['', Validators.required],
       data_entrada: ['', Validators.required],
-      data_saida: ['', Validators.required],
+      data_saida: [''],
       data_fabricacao: ['', Validators.required],
       data_validade: ['', Validators.required],
+      status: [''],
       quantidade: ['', Validators.required],
     });
   }
@@ -77,6 +77,7 @@ export class AddLoteComponent {
           data_saida: this.loteForm.value.data_saida,
           data_fabricacao: this.loteForm.value.data_fabricacao,
           data_validade: this.loteForm.value.data_validade,
+          status: this.loteForm.value.status,
           quantidade: this.loteForm.value.quantidade,
         };
         this.dbservice.updateLote(this.productId, updatedLote);
@@ -86,6 +87,13 @@ export class AddLoteComponent {
         // Add new lote
         this.dbservice
           .addLote(this.productId, this.loteForm.value)
+        
+        this.dbservice.getProduto(this.productId).subscribe((res: any) => {
+          res.status = 'INSTOCK';
+        });
+
+        this.loteForm.reset();
+        this.addLote.emit();
       }
     }
   }
