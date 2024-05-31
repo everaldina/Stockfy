@@ -89,6 +89,7 @@ export class AddLoteComponent {
           .addLote(this.productId, this.loteForm.value)
         
         this.dbservice.getProduto(this.productId).subscribe((res: any) => {
+          console.log(res);
           res.status = 'INSTOCK';
         });
 

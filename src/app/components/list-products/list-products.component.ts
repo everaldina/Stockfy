@@ -55,6 +55,7 @@ export class ListProductsComponent {
       }
       this.products = products;
       this.signalProducts.set(this.products);
+      console.log(this.products);
     });
 
     this.cols = [

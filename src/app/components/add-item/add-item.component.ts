@@ -59,6 +59,7 @@ export class AddItemComponent implements OnChanges {
           id: this.idProduto.id,
           nome: this.productForm.value.nome,
           marca: this.productForm.value.marca,
+          status: '',
         };
         this.dbservice.updateProduto(updatedProduct);
         this.editProduct.emit(updatedProduct);
@@ -74,6 +75,7 @@ export class AddItemComponent implements OnChanges {
                 id: res['name'],
                 nome: this.productForm.value.nome,
                 marca: this.productForm.value.marca,
+                status: '',
               };
             }
             this.productForm.reset();

@@ -5,7 +5,7 @@ import { Header, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DatabaseService } from '../../services/database.service';
 import { Lote } from '../../models/lote';
-import { AddItemComponent } from '../../components/add-item/add-item.component';
+import { Produto } from '../../models/produto';
 import { Router } from '@angular/router';
 import { AddLoteComponent } from '../add-lote/add-lote.component';
 
@@ -20,6 +20,7 @@ import { AddLoteComponent } from '../add-lote/add-lote.component';
 export class ListLotesComponent {
 
   productId: string  = '';
+  product: Produto = {};
   loteDialog: boolean = false;
 
   deleteLoteDialog: boolean = false;
@@ -70,6 +71,10 @@ export class ListLotesComponent {
       { field: 'data_validade', header: 'data_validade'},
       { field: 'quantidade', header: 'quantidade' },
     ];
+
+    this.dbservice.getProduto(this.productId).subscribe((response) => {
+      this.product = response;
+    });
   }
 
   openNew() {
@@ -107,6 +112,10 @@ export class ListLotesComponent {
       (val) => !this.selectedLotes.includes(val)
     );
     this.signalLotes.set(this.lotes);
+
+    if (this.lotes.length === 0) {
+      this.product.status = "OUTOFSTOCK";
+    }
     
     this.messageService.add({
       severity: 'success',
@@ -131,6 +140,10 @@ export class ListLotesComponent {
       });
 
       this.dbservice.deleteLote(this.productId, this.lote.id);
+    }
+
+    if (this.lotes.length === 0) {
+      this.product.status = "OUTOFSTOCK";
     }
 
     this.lote = {};
