@@ -43,13 +43,6 @@
       </div>
     </div>
     <div class="field">
-      <label for="marca">Status</label>
-      <input id="status" type="text" pInputText formControlName="status" />
-      <div *ngIf="loteForm.controls['status'].invalid && loteForm.controls['status'].touched" class="p-error">
-        Status é obrigatório.
-      </div>
-    </div>
-    <div class="field">
       <label for="marca">Quantidade</label>
       <input id="quantidade" type="text" pInputText formControlName="quantidade" />
       <div *ngIf="loteForm.controls['quantidade'].invalid && loteForm.controls['quantidade'].touched" class="p-error">
