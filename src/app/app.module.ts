@@ -13,13 +13,10 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 import { HomeComponent } from './components/home/home.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { OpcaoComponent } from './components/opcao/opcao.component';
-import { ListLotesComponent } from './components/list-lotes/list-lotes.component';
-import { AddLoteComponent } from './components/add-lote/add-lote.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, AddLoteComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,8 +24,7 @@ import { AddLoteComponent } from './components/add-lote/add-lote.component';
     SharedModule,
     AuthModule,
     HomeComponent,
-    MenuComponent,
-    OpcaoComponent
+    HeaderComponent,
   ],
 
   providers: [
