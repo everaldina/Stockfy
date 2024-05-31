@@ -1,149 +1,241 @@
 <div class="grid">
-    <div class="col-12">
-        <div class="card px-6 py-6">
-            <p-toast></p-toast>
-            <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="left">
-                    <div class="my-2">
-                        <button pButton pRipple label="Adicionar Lote" icon="pi pi-plus"
-                            class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Deletar lotes" icon="pi pi-trash" class="p-button-danger"
-                            (click)="deleteSelectedLotes()"
-                            [disabled]="!selectedLotes || !selectedLotes.length"></button>
-                    </div>
-                </ng-template>
-            </p-toolbar>
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button
+              pButton
+              pRipple
+              label="Adicionar Lote"
+              icon="pi pi-plus"
+              class="p-button-success mr-2"
+              (click)="openNew()"
+            ></button>
+            <button
+              pButton
+              pRipple
+              label="Deletar lotes"
+              icon="pi pi-trash"
+              class="p-button-danger"
+              (click)="deleteSelectedLotes()"
+              [disabled]="!selectedLotes || !selectedLotes.length"
+            ></button>
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-            <p-table #dt [value]="signalLotes()" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nome']" 
-                [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]" [showCurrentPageReport]="true"
-                currentPageReportTemplate="Lotes {first} - {last} de {totalRecords} registros"
-                [(selection)]="selectedLotes" selectionMode="multiple" [rowHover]="true" dataKey="id">
-                <ng-template pTemplate="caption">
-                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Relação de lotes</h5>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
-                                class="w-full sm:w-auto" />
-                        </span>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th pSortableColumn="cod_lote">
-                            Código do lote <p-sortIcon field="cod_lote"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="fornecedor">
-                            Fornecedor <p-sortIcon field="fornecedor"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="data_entrada">
-                            Data de entrada <p-sortIcon field="data_entrada"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="data_saida">
-                            Data de saida <p-sortIcon field="data_saida"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="data_fabricacao">
-                            Data de fabricacao <p-sortIcon field="data_fabricacao"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="data_validade">
-                            Data de validade <p-sortIcon field="data_validade"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="quantidade">
-                            Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="status">
-                            Status <p-sortIcon field="status"></p-sortIcon>
-                        </th>
-                        <th></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-lote>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="lote"></p-tableCheckbox>
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Codigo Lote</span>
-                            {{ lote.cod_lote }}
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Fornecedor</span>
-                            {{ lote.fornecedor }}
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Data Entrada</span>
-                            {{ lote.data_entrada }}
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Fornecedor</span>
-                            {{ lote.data_saida }}
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Data Fabricacao</span>
-                            {{ lote.data_fabricacao }}
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Data Vencimento</span>
-                            {{ lote.data_validade }}
-                        </td>
-                        <td style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Quantidade</span>
-                            {{ lote.quantidade }}
-                        </td>
-                        <td style="width:10%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span [class]="'product-badge status-' + (lote.status ? lote.status.toLowerCase() : '')">{{lote.status}}</span>
-                        </td>
-                        <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-success mr-2"
-                                    (click)="editLote(lote)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
-                                    (click)="deleteLote(lote)"></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-
-        <p-dialog [(visible)]="loteDialog" [style]="{ width: '450px' }" header="Informações do lote"
-            [modal]="true" class="p-fluid">
-            <app-add-lote (addLote)="onAddLote($event)" (editLote)="onEditLote($event)"
-                [idLote]="lote"></app-add-lote>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteLoteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <div>
-                    <span *ngIf="lote">Tem certeza que deseja deletar <b>{{ lote.cod_lote }}</b>?</span>
-    
-                    <p>Isso apagará todos os registros de lotes associados.</p>
-                </div>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteLoteDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDelete()"></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteLotesDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Tem certeza que deseja deletar todos os lotes selecionados?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteLotesDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDeleteSelected()"></button>
-            </ng-template>
-        </p-dialog>
+      <p-table
+        #dt
+        [value]="signalLotes()"
+        [columns]="cols"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [globalFilterFields]="['nome']"
+        [paginator]="true"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Lotes {first} - {last} de {totalRecords} registros"
+        [(selection)]="selectedLotes"
+        selectionMode="multiple"
+        [rowHover]="true"
+        dataKey="id"
+      >
+        <ng-template pTemplate="caption">
+          <div
+            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+          >
+            <h5 class="m-0">Relação de lotes</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="onGlobalFilter(dt, $event)"
+                placeholder="Buscar..."
+                class="w-full sm:w-auto"
+              />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="cod_lote">
+              Código do lote <p-sortIcon field="cod_lote"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fornecedor">
+              Fornecedor <p-sortIcon field="fornecedor"></p-sortIcon>
+            </th>
+            <th pSortableColumn="data_entrada">
+              Data de entrada <p-sortIcon field="data_entrada"></p-sortIcon>
+            </th>
+            <th pSortableColumn="data_saida">
+              Data de saida <p-sortIcon field="data_saida"></p-sortIcon>
+            </th>
+            <th pSortableColumn="data_fabricacao">
+              Data de fabricacao
+              <p-sortIcon field="data_fabricacao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="data_validade">
+              Data de validade <p-sortIcon field="data_validade"></p-sortIcon>
+            </th>
+            <th pSortableColumn="quantidade">
+              Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+              Status <p-sortIcon field="status"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lote>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="lote"></p-tableCheckbox>
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Codigo Lote</span>
+              {{ lote.cod_lote }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Fornecedor</span>
+              {{ lote.fornecedor }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Data Entrada</span>
+              {{ lote.data_entrada }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Fornecedor</span>
+              {{ lote.data_saida }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Data Fabricacao</span>
+              {{ lote.data_fabricacao }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Data Vencimento</span>
+              {{ lote.data_validade }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Quantidade</span>
+              {{ lote.quantidade }}
+            </td>
+            <td style="width: 10%; min-width: 10rem">
+              <span class="p-column-title">Status</span>
+              <span
+                [class]="
+                  'product-badge status-' +
+                  (lote.status ? lote.status.toLowerCase() : '')
+                "
+                >{{ lote.status }}</span
+              >
+            </td>
+            <td>
+              <div class="flex">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editLote(lote)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-danger"
+                  (click)="deleteLote(lote)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
+
+    <p-dialog
+      [(visible)]="loteDialog"
+      [style]="{ width: '450px' }"
+      header="Informações do lote"
+      [modal]="true"
+      class="p-fluid"
+    >
+      <app-add-lote
+        (addLote)="onAddLote($event)"
+        (editLote)="onEditLote($event)"
+        [idLote]="lote"
+        [productId]="productId"
+      ></app-add-lote>
+    </p-dialog>
+
+    <p-dialog
+      [(visible)]="deleteLoteDialog"
+      header="Confirm"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <div>
+          <span *ngIf="lote"
+            >Tem certeza que deseja deletar <b>{{ lote.cod_lote }}</b
+            >?</span
+          >
+        </div>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="No"
+          (click)="deleteLoteDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="Yes"
+          (click)="confirmDelete()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog
+      [(visible)]="deleteLotesDialog"
+      header="Confirm"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Tem certeza que deseja deletar todos os lotes selecionados?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="No"
+          (click)="deleteLotesDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="Yes"
+          (click)="confirmDeleteSelected()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
 </div>

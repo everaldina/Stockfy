@@ -28,7 +28,7 @@ import { Lote } from '../../models/lote';
     ButtonModule,
   ],
 })
-export class AddLoteComponent {
+export class AddLoteComponent implements OnChanges {
   loteForm: FormGroup;
   @Output() addLote = new EventEmitter<Lote>();
   @Output() editLote = new EventEmitter<Lote>();
@@ -37,18 +37,22 @@ export class AddLoteComponent {
 
   ngOnChanges() {
     if (this.idLote.id) {
-      this.dbservice.getProduto(this.idLote.id).subscribe((res: any) => {
-        this.loteForm.patchValue({
-          cod_lote: res.cod_lote,
-          fornecedor: res.fornecedor,
-          data_entrada: res.data_entrada,
-          data_saida: res.data_saida,
-          data_fabricacao: res.data_fabricacao,
-          data_validade: res.data_validade,
-          status: res.status,
-          quantidade: res.quantidade
+      // console.log(this.idLote.id);
+      this.dbservice
+        .getLote(this.productId, this.idLote.id)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.loteForm.patchValue({
+            cod_lote: res.cod_lote,
+            fornecedor: res.fornecedor,
+            data_entrada: res.data_entrada,
+            data_saida: res.data_saida,
+            data_fabricacao: res.data_fabricacao,
+            data_validade: res.data_validade,
+            status: res.status,
+            quantidade: res.quantidade,
+          });
         });
-      });
     }
   }
 
@@ -87,14 +91,24 @@ export class AddLoteComponent {
         // Add new lote
         this.dbservice
           .addLote(this.productId, this.loteForm.value)
-        
-        this.dbservice.getProduto(this.productId).subscribe((res: any) => {
-          console.log(res);
-          res.status = 'INSTOCK';
-        });
-
-        this.loteForm.reset();
-        this.addLote.emit();
+          .subscribe((res: any) => {
+            let lote: Lote = {} as Lote;
+            if (res.hasOwnProperty('name')) {
+              lote = {
+                id: res['name'],
+                cod_lote: this.loteForm.value.cod_lote,
+                fornecedor: this.loteForm.value.fornecedor,
+                data_entrada: this.loteForm.value.data_entrada,
+                data_saida: this.loteForm.value.data_saida,
+                data_fabricacao: this.loteForm.value.data_fabricacao,
+                data_validade: this.loteForm.value.data_validade,
+                status: this.loteForm.value.status,
+                quantidade: this.loteForm.value.quantidade,
+              };
+            }
+            this.loteForm.reset();
+            this.addLote.emit(lote);
+          });
       }
     }
   }

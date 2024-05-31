@@ -59,7 +59,7 @@ export class ListProductsComponent {
     });
 
     this.cols = [
-      { field: 'id', header: 'Code'},
+      { field: 'id', header: 'Code' },
       { field: 'nome', header: 'Nome' },
       { field: 'marca', header: 'Marca' },
     ];
@@ -100,7 +100,7 @@ export class ListProductsComponent {
       (val) => !this.selectedProducts.includes(val)
     );
     this.signalProducts.set(this.products);
-    
+
     this.messageService.add({
       severity: 'success',
       summary: 'Successful',
@@ -145,7 +145,10 @@ export class ListProductsComponent {
     });
     this.hideDialog();
 
-    this.signalProducts.update(currentItems => [...currentItems, produtoAdicionado]);
+    this.signalProducts.update((currentItems) => [
+      ...currentItems,
+      produtoAdicionado,
+    ]);
   }
 
   onEditProduct(productEditado: Produto) {
@@ -161,11 +164,13 @@ export class ListProductsComponent {
 
     const signalCopia = this.signalProducts();
 
-    const index = signalCopia.findIndex(item => item.id === productEditado.id)
-    if(index !== 1){
+    const index = signalCopia.findIndex(
+      (item) => item.id === productEditado.id
+    );
+    if (index !== 1) {
       console.log(this.product);
       const signalNovo = [...signalCopia];
-      signalNovo[index] =  { ...signalNovo[index], ...productEditado };
+      signalNovo[index] = { ...signalNovo[index], ...productEditado };
       this.signalProducts.set(signalNovo);
     }
   }
@@ -185,7 +190,7 @@ export class ListProductsComponent {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  toLote(id: string){
+  toLote(id: string) {
     this.router.navigate(['/lotes', id]);
   }
 }

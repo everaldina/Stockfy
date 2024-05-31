@@ -62,20 +62,18 @@ export class DatabaseService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getLote(id_produto: string, id_lote: string): Observable<Lote> {
+    return this.http
+      .get<Lote>(
+        this.endpoint + `/produtos/${id_produto}/lotes/${id_lote}.json`
+      )
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   addLote(id_produto: string, lote: Lote) {
-    this.getLotes(id_produto).subscribe((lotes) => {
-      let search = [];
-      
-      if (search.length === 0) {
-        this.http
-          .post<Lote>(
-            this.endpoint + `/produtos/${id_produto}/lotes.json`,
-            lote
-          )
-          .pipe(retry(2), catchError(this.handleError))
-          .subscribe();
-      }
-    });
+    return this.http
+      .post<Lote>(this.endpoint + `/produtos/${id_produto}/lotes.json`, lote)
+      .pipe(retry(2), catchError(this.handleError));
   }
 
   updateLote(id_produto: string, lote: Lote) {

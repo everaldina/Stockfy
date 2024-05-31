@@ -15,11 +15,10 @@ import { AddLoteComponent } from '../add-lote/add-lote.component';
   imports: [SharedModule, CommonModule, AddLoteComponent],
   templateUrl: './list-lotes.component.html',
   styleUrl: './list-lotes.component.css',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class ListLotesComponent {
-
-  productId: string  = '';
+  productId: string = '';
   product: Produto = {};
   loteDialog: boolean = false;
 
@@ -42,6 +41,8 @@ export class ListLotesComponent {
 
   rowsPerPageOptions = [5, 10, 20];
 
+  idProduto: string = '';
+
   constructor(
     private dbservice: DatabaseService,
     private messageService: MessageService,
@@ -50,6 +51,7 @@ export class ListLotesComponent {
 
   ngOnInit() {
     let lotes: Lote[] = [];
+    this.productId = this.router.url.split('/')[2];
 
     this.dbservice.getLotes(this.productId).subscribe((response) => {
       for (const key in response) {
@@ -62,13 +64,13 @@ export class ListLotesComponent {
     });
 
     this.cols = [
-      { field: 'id', header: 'code'},
-      { field: 'code_lote', header: 'code_lote'},
-      { field: 'fornecedor', header: 'fornecedor'},
-      { field: 'data_entrada', header: 'data_entrada'},
-      { field: 'data_saida', header: 'data_saida'},
-      { field: 'data_fabricacao', header: 'data_fabricacao'},
-      { field: 'data_validade', header: 'data_validade'},
+      { field: 'id', header: 'code' },
+      { field: 'code_lote', header: 'code_lote' },
+      { field: 'fornecedor', header: 'fornecedor' },
+      { field: 'data_entrada', header: 'data_entrada' },
+      { field: 'data_saida', header: 'data_saida' },
+      { field: 'data_fabricacao', header: 'data_fabricacao' },
+      { field: 'data_validade', header: 'data_validade' },
       { field: 'quantidade', header: 'quantidade' },
     ];
 
@@ -89,7 +91,7 @@ export class ListLotesComponent {
   }
 
   editLote(lote: Lote) {
-    console.log(lote);
+    //console.log(lote);
     this.lote = { ...lote };
     this.loteDialog = true;
   }
@@ -108,15 +110,13 @@ export class ListLotesComponent {
       }
     }
 
-    this.lotes = this.lotes.filter(
-      (val) => !this.selectedLotes.includes(val)
-    );
+    this.lotes = this.lotes.filter((val) => !this.selectedLotes.includes(val));
     this.signalLotes.set(this.lotes);
 
     if (this.lotes.length === 0) {
-      this.product.status = "OUTOFSTOCK";
+      this.product.status = 'OUTOFSTOCK';
     }
-    
+
     this.messageService.add({
       severity: 'success',
       summary: 'Successful',
@@ -143,7 +143,7 @@ export class ListLotesComponent {
     }
 
     if (this.lotes.length === 0) {
-      this.product.status = "OUTOFSTOCK";
+      this.product.status = 'OUTOFSTOCK';
     }
 
     this.lote = {};
@@ -165,7 +165,12 @@ export class ListLotesComponent {
     });
     this.hideDialog();
 
-    this.signalLotes.update(currentItems => [...currentItems, loteAdicionado]);
+    console.log(loteAdicionado);
+
+    this.signalLotes.update((currentItems) => [
+      ...currentItems,
+      loteAdicionado,
+    ]);
   }
 
   onEditLote(loteEditado: Lote) {
@@ -181,11 +186,11 @@ export class ListLotesComponent {
 
     const signalCopia = this.signalLotes();
 
-    const index = signalCopia.findIndex(item => item.id === loteEditado.id)
-    if(index !== 1){
-      console.log(this.lote);
+    const index = signalCopia.findIndex((item) => item.id === loteEditado.id);
+    if (index !== 1) {
+      //console.log(this.lote);
       const signalNovo = [...signalCopia];
-      signalNovo[index] =  { ...signalNovo[index], ...loteEditado };
+      signalNovo[index] = { ...signalNovo[index], ...loteEditado };
       this.signalLotes.set(signalNovo);
     }
   }
@@ -205,7 +210,7 @@ export class ListLotesComponent {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  toProduct(){
+  toProduct() {
     this.router.navigate(['products']);
   }
 }
