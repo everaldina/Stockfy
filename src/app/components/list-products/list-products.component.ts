@@ -185,6 +185,6 @@ export class ListProductsComponent {
   }
 
   toLote(id: string){
-    this.router.navigate(['/lote', id]);
+    this.router.navigate(['/lotes', id]);
   }
 }

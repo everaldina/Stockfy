@@ -1,51 +1,59 @@
 <div class="p-fluid p-formgrid p-grid">
-    <form [formGroup]="productForm" class="p-fluid" (ngSubmit)="onSubmit()">
-      <div class="field">
-        <label for="nome">Código do Lote</label>
-        <input id="codeLote" type="text" pInputText formControlName="codeLote" />
-        <div *ngIf="productForm.controls['codeLote'].invalid && productForm.controls['codeLote'].touched" class="p-error">
-          Código do lote é obrigatório.
-        </div>
+  <form [formGroup]="loteForm" class="p-fluid" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="nome">Código do Lote</label>
+      <input id="cod_lote" type="text" pInputText formControlName="cod_lote" />
+      <div *ngIf="loteForm.controls['cod_lote'].invalid && loteForm.controls['cod_lote'].touched" class="p-error">
+        Código do lote é obrigatório.
       </div>
-      <div class="field">
-            <label for="marca">Fornecedor</label>
-            <input id="fornecedor" type="text" pInputText formControlName="fornecedor" />
-            <div *ngIf="productForm.controls['fornecedor'].invalid && productForm.controls['fornecedor'].touched" class="p-error">
-              Fornecedor é obrigatório.
-            </div>
+    </div>
+    <div class="field">
+      <label for="marca">Fornecedor</label>
+      <input id="fornecedor" type="text" pInputText formControlName="fornecedor" />
+      <div *ngIf="loteForm.controls['fornecedor'].invalid && loteForm.controls['fornecedor'].touched" class="p-error">
+        Fornecedor é obrigatório.
       </div>
-      <div class="field">
-        <label for="marca">Data de Entrada</label>
-        <input id="data_entrada" type="text" pInputText formControlName="data_entrada" />
-        <div *ngIf="productForm.controls['data_entrada'].invalid && productForm.controls['data_entrada'].touched" class="p-error">
-            Data de Entrada é obrigatório.
+    </div>
+    <div class="field">
+      <label for="marca">Data de Entrada</label>
+      <input id="data_entrada" type="text" pInputText formControlName="data_entrada" />
+      <div *ngIf="loteForm.controls['data_entrada'].invalid && loteForm.controls['data_entrada'].touched"
+        class="p-error">
+        Data de Entrada é obrigatório.
       </div>
-      <div class="field">
-        <label for="marca">Data de Saida</label>
-        <input id="data_saida" type="text" pInputText formControlName="data_saida" />
-        <div *ngIf="productForm.controls['data_saida'].invalid && productForm.controls['data_saida'].touched" class="p-error">
-            Data de Saida é obrigatório.
+    </div>
+    <div class="field">
+      <label for="marca">Data de Saida</label>
+      <input id="data_saida" type="text" pInputText formControlName="data_saida" />
+      <div *ngIf="loteForm.controls['data_saida'].invalid && loteForm.controls['data_saida'].touched" class="p-error">
+        Data de Saida é obrigatório.
       </div>
-      <div class="field">
-        <label for="marca">Data de Fabricacao</label>
-        <input id="data_fabricacao" type="text" pInputText formControlName="data_fabricacao" />
-        <div *ngIf="productForm.controls['data_fabricacao'].invalid && productForm.controls['data_fabricacao'].touched" class="p-error">
-            Data de Fabricacao é obrigatório.
+    </div>
+    <div class="field">
+      <label for="marca">Data de Fabricacao</label>
+      <input id="data_fabricacao" type="text" pInputText formControlName="data_fabricacao" />
+      <div *ngIf="loteForm.controls['data_fabricacao'].invalid && loteForm.controls['data_fabricacao'].touched"
+        class="p-error">
+        Data de Fabricacao é obrigatório.
       </div>
-      <div class="field">
-        <label for="marca">Data de Validade</label>
-        <input id="data_validade" type="text" pInputText formControlName="data_validade" />
-        <div *ngIf="productForm.controls['data_validade'].invalid && productForm.controls['data_validade'].touched" class="p-error">
-            Data de Validade é obrigatório.
+    </div>
+    <div class="field">
+      <label for="marca">Data de Validade</label>
+      <input id="data_validade" type="text" pInputText formControlName="data_validade" />
+      <div *ngIf="loteForm.controls['data_validade'].invalid && loteForm.controls['data_validade'].touched"
+        class="p-error">
+        Data de Validade é obrigatório.
       </div>
-      <div class="field">
-        <label for="marca">Quantidade</label>
-        <input id="quantidade" type="text" pInputText formControlName="quantidade" />
-        <div *ngIf="productForm.controls['quantidade'].invalid && productForm.controls['quantidade'].touched" class="p-error">
-            Quantidade é obrigatória.
+    </div>
+    <div class="field">
+      <label for="marca">Quantidade</label>
+      <input id="quantidade" type="text" pInputText formControlName="quantidade" />
+      <div *ngIf="loteForm.controls['quantidade'].invalid && loteForm.controls['quantidade'].touched" class="p-error">
+        Quantidade é obrigatória.
       </div>
       <div class="p-col-12">
-        <button pButton type="button" label="Enviar" (click)="onSubmit()" [disabled]="productForm.invalid"></button>
+        <button pButton type="button" label="Enviar" (click)="onSubmit()" [disabled]="loteForm.invalid"></button>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>

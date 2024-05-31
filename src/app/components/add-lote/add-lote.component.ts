@@ -71,7 +71,7 @@ export class AddLoteComponent {
         // Update lote
         let updatedLote: Lote = {
           id: this.idLote.id,
-          cod_lote: this.loteForm.value.codeLote,
+          cod_lote: this.loteForm.value.cod_lote,
           fornecedor: this.loteForm.value.fornecedor,
           data_entrada: this.loteForm.value.data_entrada,
           data_saida: this.loteForm.value.data_saida,
@@ -86,25 +86,7 @@ export class AddLoteComponent {
         // Add new lote
         this.dbservice
           .addLote(this.productId, this.loteForm.value)
-          .subscribe((res: any) => {
-            let lote: Lote = {} as Lote;
-            if (res.hasOwnProperty('name')) {
-              lote = {
-                id: res['name'],
-                cod_lote: this.loteForm.value.cod_lote,
-                fornecedor: this.loteForm.value.fornecedor,
-                data_entrada: this.loteForm.value.data_entrada,
-                data_saida: this.loteForm.value.data_saida,
-                data_fabricacao: this.loteForm.value.data_fabricacao,
-                data_validade: this.loteForm.value.data_validade,
-                quantidade: this.loteForm.value.quantidade
-              };
-            }
-            this.loteForm.reset();
-            this.addLote.emit(lote);
-          });
       }
     }
   }
-
 }

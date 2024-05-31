@@ -7,11 +7,12 @@ import { DatabaseService } from '../../services/database.service';
 import { Lote } from '../../models/lote';
 import { AddItemComponent } from '../../components/add-item/add-item.component';
 import { Router } from '@angular/router';
+import { AddLoteComponent } from '../add-lote/add-lote.component';
 
 @Component({
   selector: 'app-list-lotes',
   standalone: true,
-  imports: [SharedModule, CommonModule, AddItemComponent],
+  imports: [SharedModule, CommonModule, AddLoteComponent],
   templateUrl: './list-lotes.component.html',
   styleUrl: './list-lotes.component.css',
   providers: [MessageService]

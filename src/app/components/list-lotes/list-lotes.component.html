@@ -36,8 +36,8 @@
                         <th pSortableColumn="code">
                             Id <p-sortIcon field="code"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="code_lote">
-                            Código do lote <p-sortIcon field="code_lote"></p-sortIcon>
+                        <th pSortableColumn="cod_lote">
+                            Código do lote <p-sortIcon field="cod_lote"></p-sortIcon>
                         </th>
                         <th pSortableColumn="fornecedor">
                             Fornecedor <p-sortIcon field="fornecedor"></p-sortIcon>
@@ -57,8 +57,8 @@
                         <th pSortableColumn="quantidade">
                             Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
                         </th>
-                        <th>
-                            Lotes
+                        <th pSortableColumn="status">
+                            Status <p-sortIcon field="status"></p-sortIcon>
                         </th>
                         <th></th>
                     </tr>
@@ -68,48 +68,41 @@
                         <td>
                             <p-tableCheckbox [value]="lote"></p-tableCheckbox>
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Code</span>
                             {{ lote.id }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Codigo Lote</span>
                             {{ lote.cod_lote }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Fornecedor</span>
                             {{ lote.fornecedor }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Data Entrada</span>
                             {{ lote.data_entrada }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Fornecedor</span>
                             {{ lote.data_saida }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Data Fabricacao</span>
                             {{ lote.data_fabricacao }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Data Vencimento</span>
-                            {{ lote.data_vencimento }}
+                            {{ lote.data_validade }}
                         </td>
-                        <td style="width: 16%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 10rem">
                             <span class="p-column-title">Quantidade</span>
                             {{ lote.quantidade }}
                         </td>
 
-                        <td style="width:16%; min-width: 10rem;"><span class="p-column-title">Status</span>
+                        <td style="width:10%; min-width: 10rem;"><span class="p-column-title">Status</span>
                             <span [class]="'product-badge status-' + (lote.status ? lote.status.toLowerCase() : '')">{{lote.status}}</span>
-                        </td>
-
-                        <td style="width: 16%; min-width: 10rem">
-                            <span class="p-column-title">Nao precisa</span>
-                            <span class="cursor-pointer text-primary hover:text-blue-700 transition-duration-200ms" (click)="toProduct()" tabindex="0">
-                                <i class="pi pi-search mr-2"></i> Ver Lotes
-                            </span>
                         </td>
 
                         <td>
@@ -128,8 +121,8 @@
 
         <p-dialog [(visible)]="loteDialog" [style]="{ width: '450px' }" header="Informações do lote"
             [modal]="true" class="p-fluid">
-            <app-add-item (addLote)="onAddLote($event)" (editLote)="onEditLote($event)"
-                [idLote]="lote"></app-add-item>
+            <app-add-lote (addLote)="onAddLote($event)" (editLote)="onEditLote($event)"
+                [idLote]="lote"></app-add-lote>
         </p-dialog>
 
         <p-dialog [(visible)]="deleteLoteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
