@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
 import { Lote } from '../../models/lote';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-add-lote',
@@ -26,6 +27,7 @@ import { Lote } from '../../models/lote';
     SharedModule,
     InputTextModule,
     ButtonModule,
+    CalendarModule
   ],
 })
 export class AddLoteComponent implements OnChanges {
@@ -41,7 +43,7 @@ export class AddLoteComponent implements OnChanges {
       this.dbservice
         .getLote(this.productId, this.idLote.id)
         .subscribe((res: any) => {
-          console.log(res);
+          //console.log(res);
           this.loteForm.patchValue({
             cod_lote: res.cod_lote,
             fornecedor: res.fornecedor,
@@ -65,7 +67,7 @@ export class AddLoteComponent implements OnChanges {
       data_fabricacao: ['', Validators.required],
       data_validade: ['', Validators.required],
       status: [''],
-      quantidade: ['', Validators.required],
+      quantidade: ['', Validators.pattern(/^\d+$/)],
     });
   }
 

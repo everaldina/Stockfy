@@ -1,0 +1,28 @@
+:host ::ng-deep .small-calendar {
+  width: 200px; /* Ajuste a largura conforme necessário */
+  font-size: 12px; /* Ajuste o tamanho da fonte conforme necessário */
+}
+
+:host ::ng-deep .small-calendar .p-datepicker {
+  width: 100%;
+  height: 620%;
+}
+
+:host ::ng-deep .small-calendar .p-datepicker table {
+  font-size: 10px; /* Ajuste o tamanho da fonte das datas conforme necessário */
+}
+
+:host ::ng-deep .small-calendar .p-datepicker .p-datepicker-header {
+  font-size: 10px; /* Ajuste o tamanho da fonte do cabeçalho conforme necessário */
+}
+
+:host ::ng-deep .small-calendar .p-datepicker .p-datepicker-prev,
+:host ::ng-deep .small-calendar .p-datepicker .p-datepicker-next {
+  font-size: 10px; /* Ajuste o tamanho da fonte dos botões de navegação conforme necessário */
+}
+
+:host ::ng-deep .small-calendar .p-datepicker table td,
+:host ::ng-deep .small-calendar .p-datepicker table th {
+padding: 0px 0px; /* Ajuste o padding conforme necessário para reduzir o espaço */
+margin: 0; /* Remover margem */
+}

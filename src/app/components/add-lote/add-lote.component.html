@@ -16,7 +16,7 @@
     </div>
     <div class="field">
       <label for="marca">Data de Entrada</label>
-      <input id="data_entrada" type="text" pInputText formControlName="data_entrada" />
+      <p-calendar class="small-calendar" id="data_entrada" formControlName="data_entrada" dateFormat="dd.mm.yy"></p-calendar>
       <div *ngIf="loteForm.controls['data_entrada'].invalid && loteForm.controls['data_entrada'].touched"
         class="p-error">
         Data de Entrada é obrigatório.
@@ -24,11 +24,11 @@
     </div>
     <div class="field">
       <label for="marca">Data de Saida</label>
-      <input id="data_saida" type="text" pInputText formControlName="data_saida" />
+      <p-calendar class="small-calendar" id="data_saida" formControlName="data_saida" dateFormat="dd.mm.yy"></p-calendar>
     </div>
     <div class="field">
       <label for="marca">Data de Fabricacao</label>
-      <input id="data_fabricacao" type="text" pInputText formControlName="data_fabricacao" />
+      <p-calendar class="small-calendar" id="data_fabricacao" formControlName="data_fabricacao" dateFormat="dd.mm.yy"></p-calendar>
       <div *ngIf="loteForm.controls['data_fabricacao'].invalid && loteForm.controls['data_fabricacao'].touched"
         class="p-error">
         Data de Fabricacao é obrigatório.
@@ -36,7 +36,7 @@
     </div>
     <div class="field">
       <label for="marca">Data de Validade</label>
-      <input id="data_validade" type="text" pInputText formControlName="data_validade" />
+      <p-calendar class="small-calendar" id="data_validade" formControlName="data_validade" dateFormat="dd.mm.yy"></p-calendar>
       <div *ngIf="loteForm.controls['data_validade'].invalid && loteForm.controls['data_validade'].touched"
         class="p-error">
         Data de Validade é obrigatório.

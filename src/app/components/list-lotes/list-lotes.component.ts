@@ -165,7 +165,7 @@ export class ListLotesComponent {
     });
     this.hideDialog();
 
-    console.log(loteAdicionado);
+    //console.log(loteAdicionado);
 
     this.signalLotes.update((currentItems) => [
       ...currentItems,
