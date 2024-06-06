@@ -7,5 +7,5 @@ export interface Lote {
   data_fabricacao?: Date;
   data_validade?: Date;
   quantidade?: number;
-  status?: 'Em estoque' | 'Transferido' | 'Descartado' | 'Vencido';
+  status?: 'Em estoque' | 'Transferido' | 'Descartado';
 }

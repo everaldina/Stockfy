@@ -40,6 +40,7 @@ export class AddLoteComponent implements OnChanges {
   @Output() editLote = new EventEmitter<Lote>();
   @Input() idLote: Lote = {} as Lote;
   @Input() productId: string = '';
+  statusOptions: string[] = ['Em estoque', 'Transferido', 'Descartado'];
 
   ngOnChanges() {
     if (this.idLote.id) {
@@ -71,11 +72,11 @@ export class AddLoteComponent implements OnChanges {
         data_saida: [''],
         data_fabricacao: ['', Validators.required],
         data_validade: ['', Validators.required],
-        status: [''],
+        status: ['', Validators.required],
         quantidade: ['', Validators.pattern(/^\d+$/)],
       },
       {
-        validators: [this.dateValidator],
+        validators: [this.dateValidator, this.statusValidator],
       }
     );
   }
@@ -100,6 +101,27 @@ export class AddLoteComponent implements OnChanges {
 
     if (dataEntrada && dataSaida && dataEntrada >= dataSaida) {
       errors.dataSaida = 'Data de saída deve ser maior que a data de entrada';
+    }
+
+    return Object.keys(errors).length ? errors : null;
+  }
+
+  statusValidator(control: AbstractControl): ValidationErrors | null {
+    const status = control.get('status')?.value;
+    const data_saida = control.get('data_saida')?.value;
+
+    const errors: any = {};
+
+    if (status === 'Transferido' && !data_saida) {
+      errors.dataSaida = 'Data de saída é obrigatória para status Transferido';
+    }
+
+    if (status === 'Descartado' && !data_saida) {
+      errors.dataSaida = 'Data de saída é obrigatória para status Descartado';
+    }
+
+    if (status === 'Em estoque' && data_saida) {
+      errors.dataSaida = 'Data de saída não é permitida para status Em estoque';
     }
 
     return Object.keys(errors).length ? errors : null;

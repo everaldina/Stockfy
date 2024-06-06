@@ -104,6 +104,22 @@
       </div>
     </div>
     <div class="field">
+      <label for="marca">Status</label>
+      <p-dropdown
+        [options]="statusOptions"
+        formControlName="status"
+      ></p-dropdown>
+      <div
+        *ngIf="
+          loteForm.controls['status'].invalid &&
+          loteForm.controls['status'].touched
+        "
+        class="p-error"
+      >
+        Status é obrigatório.
+      </div>
+    </div>
+    <div class="field">
       <label for="marca">Quantidade</label>
       <input
         id="quantidade"
