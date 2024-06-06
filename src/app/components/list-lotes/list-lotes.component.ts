@@ -91,7 +91,6 @@ export class ListLotesComponent {
   }
 
   editLote(lote: Lote) {
-    //console.log(lote);
     this.lote = { ...lote };
     this.loteDialog = true;
   }
@@ -165,8 +164,6 @@ export class ListLotesComponent {
     });
     this.hideDialog();
 
-    //console.log(loteAdicionado);
-
     this.signalLotes.update((currentItems) => [
       ...currentItems,
       loteAdicionado,
@@ -188,7 +185,6 @@ export class ListLotesComponent {
 
     const index = signalCopia.findIndex((item) => item.id === loteEditado.id);
     if (index !== 1) {
-      //console.log(this.lote);
       const signalNovo = [...signalCopia];
       signalNovo[index] = { ...signalNovo[index], ...loteEditado };
       this.signalLotes.set(signalNovo);

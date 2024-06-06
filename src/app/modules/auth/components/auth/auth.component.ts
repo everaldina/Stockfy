@@ -6,23 +6,25 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
   modoLogin = true;
   estaCarregando = false;
   erro: string = '';
-  temErro:boolean = false;
+  temErro: boolean = false;
 
-  constructor(private authService: AutenticacaoService,
-              private router:Router) { }
+  constructor(
+    private authService: AutenticacaoService,
+    private router: Router
+  ) {}
 
   onTrocarModo() {
     this.modoLogin = !this.modoLogin;
   }
 
-  onSubmit(formulario: NgForm){
-    if(!formulario.valid){
+  onSubmit(formulario: NgForm) {
+    if (!formulario.valid) {
       return;
     }
     const email = formulario.value.email;
@@ -30,16 +32,21 @@ export class AuthComponent {
 
     this.estaCarregando = true;
 
-    if(this.modoLogin){
+    if (this.modoLogin) {
       this.authService.loginUser(email, password).subscribe(
-        responseData => {
+        (resData) => {
           this.estaCarregando = false;
           this.temErro = false;
           this.router.navigate(['/']);
+        },
+        (errorMessage) => {
+          this.erro = errorMessage;
+          this.temErro = true;
+          this.estaCarregando = false;
         }
       );
     } else {
-      if (formulario.value.password !== formulario.value.check_password){
+      if (formulario.value.password !== formulario.value.check_password) {
         this.erro = 'As senhas não conferem.';
         this.temErro = true;
         this.estaCarregando = false;
@@ -47,24 +54,22 @@ export class AuthComponent {
       }
 
       this.authService.signupUser(email, password).subscribe(
-        responseData => {
+        (responseData) => {
           this.estaCarregando = false;
           this.temErro = false;
           this.router.navigate(['/']);
         },
-        error => {
-          console.log(error);
-          switch(error.error.error.message){
+        (error) => {
+          switch (error.error.error.message) {
             case 'EMAIL_EXISTS':
               this.erro = 'O e-mail já está em uso.';
               break;
             default:
-              this.erro = 'Ocorreu um erro ao cadastrar o usuário.'
+              this.erro = 'Ocorreu um erro ao cadastrar o usuário.';
               break;
-          
           }
           this.temErro = true;
-          this.erro = 'Ocorreu um erro ao cadastrar o usuário.'
+          this.erro = 'Ocorreu um erro ao cadastrar o usuário.';
           this.estaCarregando = false;
         }
       );

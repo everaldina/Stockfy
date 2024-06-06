@@ -55,7 +55,6 @@ export class ListProductsComponent {
       }
       this.products = products;
       this.signalProducts.set(this.products);
-      console.log(this.products);
     });
 
     this.cols = [
@@ -77,7 +76,6 @@ export class ListProductsComponent {
   }
 
   editProduct(product: Produto) {
-    console.log(product);
     this.product = { ...product };
     this.productDialog = true;
   }
@@ -168,7 +166,6 @@ export class ListProductsComponent {
       (item) => item.id === productEditado.id
     );
     if (index !== 1) {
-      console.log(this.product);
       const signalNovo = [...signalCopia];
       signalNovo[index] = { ...signalNovo[index], ...productEditado };
       this.signalProducts.set(signalNovo);

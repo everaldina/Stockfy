@@ -44,11 +44,9 @@ export class AddLoteComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.idLote.id) {
-      // console.log(this.idLote.id);
       this.dbservice
         .getLote(this.productId, this.idLote.id)
         .subscribe((res: any) => {
-          //console.log(res);
           this.loteForm.patchValue({
             cod_lote: res.cod_lote,
             fornecedor: res.fornecedor,
