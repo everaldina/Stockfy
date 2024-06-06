@@ -3,53 +3,131 @@
     <div class="field">
       <label for="nome">Código do Lote</label>
       <input id="cod_lote" type="text" pInputText formControlName="cod_lote" />
-      <div *ngIf="loteForm.controls['cod_lote'].invalid && loteForm.controls['cod_lote'].touched" class="p-error">
+      <div
+        *ngIf="
+          loteForm.controls['cod_lote'].invalid &&
+          loteForm.controls['cod_lote'].touched
+        "
+        class="p-error"
+      >
         Código do lote é obrigatório.
       </div>
     </div>
     <div class="field">
       <label for="marca">Fornecedor</label>
-      <input id="fornecedor" type="text" pInputText formControlName="fornecedor" />
-      <div *ngIf="loteForm.controls['fornecedor'].invalid && loteForm.controls['fornecedor'].touched" class="p-error">
+      <input
+        id="fornecedor"
+        type="text"
+        pInputText
+        formControlName="fornecedor"
+      />
+      <div
+        *ngIf="
+          loteForm.controls['fornecedor'].invalid &&
+          loteForm.controls['fornecedor'].touched
+        "
+        class="p-error"
+      >
         Fornecedor é obrigatório.
       </div>
     </div>
     <div class="field">
       <label for="marca">Data de Entrada</label>
-      <p-calendar class="small-calendar" id="data_entrada" formControlName="data_entrada" dateFormat="dd.mm.yy"></p-calendar>
-      <div *ngIf="loteForm.controls['data_entrada'].invalid && loteForm.controls['data_entrada'].touched"
-        class="p-error">
+      <p-calendar
+        class="small-calendar"
+        id="data_entrada"
+        formControlName="data_entrada"
+        dateFormat="dd.mm.yy"
+      ></p-calendar>
+      <div
+        *ngIf="
+          loteForm.controls['data_entrada'].invalid &&
+          loteForm.controls['data_entrada'].touched
+        "
+        class="p-error"
+      >
         Data de Entrada é obrigatório.
       </div>
     </div>
     <div class="field">
       <label for="marca">Data de Saida</label>
-      <p-calendar class="small-calendar" id="data_saida" formControlName="data_saida" dateFormat="dd.mm.yy"></p-calendar>
+      <p-calendar
+        class="small-calendar"
+        id="data_saida"
+        formControlName="data_saida"
+        dateFormat="dd.mm.yy"
+      ></p-calendar>
+      <div *ngIf="loteForm.hasError('dataSaida')" class="p-error">
+        {{ loteForm.errors?.['dataSaida'] }}
+      </div>
     </div>
     <div class="field">
       <label for="marca">Data de Fabricacao</label>
-      <p-calendar class="small-calendar" id="data_fabricacao" formControlName="data_fabricacao" dateFormat="dd.mm.yy"></p-calendar>
-      <div *ngIf="loteForm.controls['data_fabricacao'].invalid && loteForm.controls['data_fabricacao'].touched"
-        class="p-error">
+      <p-calendar
+        class="small-calendar"
+        id="data_fabricacao"
+        formControlName="data_fabricacao"
+        dateFormat="dd.mm.yy"
+      ></p-calendar>
+      <div
+        *ngIf="
+          loteForm.controls['data_fabricacao'].invalid &&
+          loteForm.controls['data_fabricacao'].touched
+        "
+        class="p-error"
+      >
         Data de Fabricacao é obrigatório.
+      </div>
+      <div *ngIf="loteForm.hasError('dataFabricacao')" class="p-error">
+        {{ loteForm.errors?.['dataFabricacao'] }}
       </div>
     </div>
     <div class="field">
       <label for="marca">Data de Validade</label>
-      <p-calendar class="small-calendar" id="data_validade" formControlName="data_validade" dateFormat="dd.mm.yy"></p-calendar>
-      <div *ngIf="loteForm.controls['data_validade'].invalid && loteForm.controls['data_validade'].touched"
-        class="p-error">
+      <p-calendar
+        class="small-calendar"
+        id="data_validade"
+        formControlName="data_validade"
+        dateFormat="dd.mm.yy"
+      ></p-calendar>
+      <div
+        *ngIf="
+          loteForm.controls['data_validade'].invalid &&
+          loteForm.controls['data_validade'].touched
+        "
+        class="p-error"
+      >
         Data de Validade é obrigatório.
+      </div>
+      <div *ngIf="loteForm.hasError('dataValidade')" class="p-error">
+        {{ loteForm.errors?.['dataValidade'] }}
       </div>
     </div>
     <div class="field">
       <label for="marca">Quantidade</label>
-      <input id="quantidade" type="text" pInputText formControlName="quantidade" />
-      <div *ngIf="loteForm.controls['quantidade'].invalid && loteForm.controls['quantidade'].touched" class="p-error">
+      <input
+        id="quantidade"
+        type="text"
+        pInputText
+        formControlName="quantidade"
+      />
+      <div
+        *ngIf="
+          loteForm.controls['quantidade'].invalid &&
+          loteForm.controls['quantidade'].touched
+        "
+        class="p-error"
+      >
         Quantidade é obrigatória.
       </div>
       <div class="p-col-12">
-        <button pButton type="button" label="Enviar" (click)="onSubmit()" [disabled]="loteForm.invalid"></button>
+        <button
+          pButton
+          type="button"
+          label="Enviar"
+          (click)="onSubmit()"
+          [disabled]="loteForm.invalid"
+        ></button>
       </div>
     </div>
   </form>

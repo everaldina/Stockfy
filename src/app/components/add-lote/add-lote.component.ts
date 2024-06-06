@@ -1,4 +1,8 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../modules/shared/shared.module';
 import {
@@ -27,7 +31,7 @@ import { CalendarModule } from 'primeng/calendar';
     SharedModule,
     InputTextModule,
     ButtonModule,
-    CalendarModule
+    CalendarModule,
   ],
 })
 export class AddLoteComponent implements OnChanges {
@@ -59,16 +63,46 @@ export class AddLoteComponent implements OnChanges {
   }
 
   constructor(private fb: FormBuilder, private dbservice: DatabaseService) {
-    this.loteForm = this.fb.group({
-      cod_lote: ['', Validators.required],
-      fornecedor: ['', Validators.required],
-      data_entrada: ['', Validators.required],
-      data_saida: [''],
-      data_fabricacao: ['', Validators.required],
-      data_validade: ['', Validators.required],
-      status: [''],
-      quantidade: ['', Validators.pattern(/^\d+$/)],
-    });
+    this.loteForm = this.fb.group(
+      {
+        cod_lote: ['', Validators.required],
+        fornecedor: ['', Validators.required],
+        data_entrada: ['', Validators.required],
+        data_saida: [''],
+        data_fabricacao: ['', Validators.required],
+        data_validade: ['', Validators.required],
+        status: [''],
+        quantidade: ['', Validators.pattern(/^\d+$/)],
+      },
+      {
+        validators: [this.dateValidator],
+      }
+    );
+  }
+
+  dateValidator(control: AbstractControl): ValidationErrors | null {
+    const dataEntrada = control.get('data_entrada')?.value;
+    const dataSaida = control.get('data_saida')?.value;
+    const dataFabricacao = control.get('data_fabricacao')?.value;
+    const dataValidade = control.get('data_validade')?.value;
+
+    const errors: any = {};
+
+    if (dataEntrada && dataFabricacao && dataEntrada <= dataFabricacao) {
+      errors.dataFabricacao =
+        'Data de fabricação deve ser menor que a data de entrada';
+    }
+
+    if (dataFabricacao && dataValidade && dataFabricacao >= dataValidade) {
+      errors.dataValidade =
+        'Data de validade deve ser maior que a data de fabricação';
+    }
+
+    if (dataEntrada && dataSaida && dataEntrada >= dataSaida) {
+      errors.dataSaida = 'Data de saída deve ser maior que a data de entrada';
+    }
+
+    return Object.keys(errors).length ? errors : null;
   }
 
   onSubmit() {
